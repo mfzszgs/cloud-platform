@@ -3,3 +3,7 @@
 /Servers
 build
 bin
+.classpath
+.project
+.settings
+*.class
