@@ -3,19 +3,23 @@ package test.server;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import javax.annotation.Resource;
 import javax.jws.WebService;
 
-@WebService(endpointInterface = "test.server.ConnectionDelegation")
+@WebService(endpointInterface = "test.server.ConnectionDelegation",serviceName = "ConnectionDelegation")
 public class ConnectionDelegationImpl implements ConnectionDelegation {
-
+	@Resource
 	private Connection conn;
+	@Resource
 	private StatementDelegation stmt;
+	@Resource
 	private ResultSetDelegation rs;
 
 	public ConnectionDelegationImpl() {
 	}
 
-	public ConnectionDelegationImpl(Connection conn) {
+	ConnectionDelegationImpl(Connection conn) {
 		this.conn = conn;
 	}
 
@@ -45,7 +49,9 @@ public class ConnectionDelegationImpl implements ConnectionDelegation {
 
 	@Override
 	public boolean isClosed() throws SQLException {
-		return conn.isClosed();
+		if(conn==null)System.out.println("Conn is NULL");
+		boolean flag=conn.isClosed();
+		return flag;
 	};
 
 	@Override

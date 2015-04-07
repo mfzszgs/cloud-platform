@@ -1,4 +1,4 @@
-/.metadata
+.metadata
 .DS_Store
 /RemoteSystemsTempFiles
 /Servers
@@ -13,3 +13,5 @@ target
 mappings
 .studio
 *.properties
+studio_id.xml
+.mule

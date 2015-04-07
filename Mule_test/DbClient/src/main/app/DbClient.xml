@@ -8,9 +8,9 @@
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 	<flow name="csvPublisher">
-		<cxf:simple-client serviceClass="org.example.HelloService"
+		<cxf:jaxws-client serviceClass="org.example.HelloWorld"
 			operation="sayHi" doc:name="CXF"/>
-		<outbound-endpoint address="http://localhost:10101/services/greeter" doc:name="Generic"/>
+		<outbound-endpoint address="http://172.23.138.10:10101/mysql" doc:name="Generic"/>
 	</flow>
 
 

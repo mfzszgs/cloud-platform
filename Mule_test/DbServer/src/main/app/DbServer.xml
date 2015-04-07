@@ -9,10 +9,14 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
 http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/3.1/mule-cxf.xsd" version="EE-3.6.1">
  
-  <http:listener-config doc:name="HTTP Listener Configuration" name="listener-config" host="localhost" port="10101" />
+
+<spring:bean id="conne" class="test.server.ConnectionDelegationImpl" /> 
+  <http:listener-config doc:name="HTTP Listener Configuration" name="listener-config" host="0.0.0.0" port="10101" />
   <flow name="helloService">
         <http:listener config-ref="listener-config" path="mysql" doc:name="HTTP Connector"/>    
-    <cxf:jaxws-service serviceClass="org.example.HelloWorld" doc:name="CXF"/>
-    <component class="org.example.HelloWorldImpl" doc:name="Java"/> 
+    <cxf:jaxws-service serviceClass="test.server.ConnectionDelegation" doc:name="CXF"/>
+    <component> 
+      <spring-object bean="conne" />  
+    </component> 
   </flow>
   </mule>
