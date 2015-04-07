@@ -1,24 +1,25 @@
 package com.beans;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import test.server.ConnectionDelegate;
+import test.server.ResultSetDelegate;
+import test.server.StatementDelegate;
+
 public class PubDAO {
 	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public List<String> getNewCol(int i) throws SQLException{//拿到数据库里新闻的栏目返回String型的列表，i=0时返回所有栏目
 		List<String> li = new ArrayList<String>();
-		Statement stmt = null;
-		ResultSet rs = null;
+		StatementDelegate stmt = null;
+		ResultSetDelegate rs = null;
 		String sql = null;
-		Connection con = Conn.getConnection();
+		ConnectionDelegate con = Conn.getConnection();
 		if (!con.isClosed())
 			System.out.println("Succeeded connecting to the Database!");
 		try {
@@ -45,9 +46,9 @@ public class PubDAO {
 
 	public LinkedList<NewsBean> pubGetNewsByKC(String keyword,int columnId) throws SQLException{//通过传来的关键字keyword或columnId，找到含有该关键字的文档并显示出来
 		LinkedList<NewsBean> li = new LinkedList<NewsBean>();
-		Statement stmt = null;
-		ResultSet rs = null;
-		Connection con = Conn.getConnection();
+		StatementDelegate stmt = null;
+		ResultSetDelegate rs = null;
+		ConnectionDelegate con = Conn.getConnection();
 		String sql = null;
 		if (!con.isClosed())
 			System.out.println("Succeeded connecting to the Database!");
@@ -84,8 +85,8 @@ public class PubDAO {
 		boolean flag = false;
 		String date = df.format(new Date());
 		String sql = "INSERT INTO news (`Title`, `AuthorID`, `Keywords`, `InputDate`, `ColumnID`, `FullText`) VALUES ('"+title+"', "+authorId+", '"+keywords+"', '"+date+"', "+columnId+", '"+fullText+"');";
-		Statement stmt = null;
-		Connection con = Conn.getConnection();
+		StatementDelegate stmt = null;
+		ConnectionDelegate con = Conn.getConnection();
 		try {
 			if (!con.isClosed())
 				System.out.println("Succeeded connecting to the Database!");
@@ -108,8 +109,8 @@ public class PubDAO {
 		
 		//String date = df.format(new Date());
 		String sql = "UPDATE news SET `Title`='"+title+"', `Keywords`='"+keywords+"', `ColumnID`="+columnId+", `FullText`='"+fullText+"' WHERE  `ID`="+id+" ";
-		Statement stmt = null;
-		Connection con = Conn.getConnection();
+		StatementDelegate stmt = null;
+		ConnectionDelegate con = Conn.getConnection();
 		try {
 			if (!con.isClosed())
 				System.out.println("Succeeded connecting to the Database!");
@@ -125,10 +126,10 @@ public class PubDAO {
 	
 public List<NewsBean> getNews(int i) throws SQLException{//通过新闻id拿到数据库里新闻信息返回NewsBean型的列表,i=0时取所有信息
 		List<NewsBean> li = new ArrayList<NewsBean>();
-		Statement stmt = null;
-		ResultSet rs = null;
+		StatementDelegate stmt = null;
+		ResultSetDelegate rs = null;
 		String sql = null;
-		Connection con = Conn.getConnection();
+		ConnectionDelegate con = Conn.getConnection();
 		if (!con.isClosed())
 			System.out.println("Succeeded connecting to the Database!");
 		try {
@@ -168,10 +169,10 @@ public List<NewsBean> getNews(int i) throws SQLException{//通过新闻id拿到�
 
 public List<String> getNewsClass(int i) throws SQLException{//拿到数据库里新闻的种类返回String型的列表
 	List<String> li = new ArrayList<String>();
-	Statement stmt = null;
-	ResultSet rs = null;
+	StatementDelegate stmt = null;
+	ResultSetDelegate rs = null;
 	String sql = null;
-	Connection con = Conn.getConnection();
+	ConnectionDelegate con = Conn.getConnection();
 	if (!con.isClosed())
 		System.out.println("Succeeded connecting to the Database!");
 	try {
@@ -198,10 +199,10 @@ public List<String> getNewsClass(int i) throws SQLException{//拿到数据库里
 
 public void updateNewsClass(int id ,String className) throws SQLException{//改变对应档案类别的名字
 
-	Statement stmt = null;
-	ResultSet rs = null;
+	StatementDelegate stmt = null;
+	ResultSetDelegate rs = null;
 	String sql = "UPDATE newscolumn SET ColumnName='"+className+"' WHERE  ID="+id+"  ";
-	Connection con = Conn.getConnection();
+	ConnectionDelegate con = Conn.getConnection();
 	if (!con.isClosed())
 		System.out.println("Succeeded connecting to the Database!");
 	try {
@@ -217,8 +218,8 @@ public void updateNewsClass(int id ,String className) throws SQLException{//改�
 }
 
 	public void delFromNews(int id) throws SQLException{//删除news表里的一行数据
-		Statement stmt = null;
-		Connection con = Conn.getConnection();
+		StatementDelegate stmt = null;
+		ConnectionDelegate con = Conn.getConnection();
 		String sql = "delete from news where ID = '"+id+"'";
 		if (!con.isClosed())
 			System.out.println("Succeeded connecting to the Database!");

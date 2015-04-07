@@ -4,9 +4,10 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import javax.xml.ws.soap.SOAPBinding;
 
-import test.server.ConnectionDelegation;
-import test.server.ResultSetDelegation;
-import test.server.StatementDelegation;
+import test.server.ConnectionDelegate;
+import test.server.Delegate;
+import test.server.ResultSetDelegate;
+import test.server.StatementDelegate;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -25,47 +26,38 @@ public class MysqlConnectionClient {
 	private static final String PASSWORD = "s";
 
 	public static void main(String args[]) throws Exception {
-		
-		
-//		QName SERVICE_NAME = new QName("http://server.test/", "ConnectionDelegationService");
-//		QName PORT_NAME = new QName("http://server.test/", "ConnectionDelegationPort");
-//		Service service = Service.create(SERVICE_NAME);
-//		// Endpoint Address
-//		String endpointAddress = "http://localhost:10101/mysql?wsdl";
-//		// Add a port to the Service
-//		service.addPort(PORT_NAME, SOAPBinding.SOAP11HTTP_BINDING, endpointAddress);
-//		ConnectionDelegation conn = service.getPort(ConnectionDelegation.class);
-		
-		URL url;
-		url = new URL("http://localhost:10101/mysql?wsdl");
-//		url = new URL("http://172.23.138.10:10101/mysql?wsdl");
+	
+		URL url= new URL("http://localhost:10101/mysql?wsdl");
 		// Qualified name of the service:
 		// 1st arg is the service URI
 		// 2nd is the service name published in the WSDL
 		QName qname = new QName("http://server.test/",
-				"ConnectionDelegationService");
+				"DelegateService");
 		// Create, in effect, a factory for the service.
 		Service service = Service.create(url, qname);
 		// Extract the endpoint interface, the service "port".
-		ConnectionDelegation conn = service.getPort(ConnectionDelegation.class);
-
+		Delegate dele = service.getPort(Delegate.class);
+		
+		//////////////////////////////////////////////////////
+		ConnectionDelegate con = new ConnectionDelegate(dele);
 		try {
-		conn.getConnect(DRIVER, URL, USER, PASSWORD);
+		con.getConnect(DRIVER, URL, USER, PASSWORD);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		if(conn!=null)System.out.println("!NULL");
-		int i=1;
+		if(con!=null)System.out.println("!NULL");
+		//////////////////////////////////////////////////////
 		List<String> li = new ArrayList<String>();
-		StatementDelegation stmt = null;
-		ResultSetDelegation rs = null;
+		StatementDelegate stmt = null;
+		ResultSetDelegate rs = null;
 		String sql = null;
 		try {
-		if (!conn.isClosed())
+		if (!con.isClosed())
 			System.out.println("Succeeded connecting to the Database!");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		int i=1;
 		try {
 			if(i == 0){
 				sql = "select ColumnName from newscolumn";
@@ -73,10 +65,8 @@ public class MysqlConnectionClient {
 			else{
 				sql = "select ColumnName from newscolumn where id = '"+i+"'";
 			}
-			stmt = conn.createStatement();
-			stmt.setConn(conn);//将conn捆绑到stmt上，使得stmt能够直接调用conn，从而实现远程调用
+			stmt = con.createStatement();
 			rs = stmt.executeQuery(sql);//要执行的SQL语句
-			rs.setConn(conn);
 
 			while(rs.next()){
 				li.add(rs.getString("ColumnName"));
@@ -85,15 +75,17 @@ public class MysqlConnectionClient {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-//  			conn.closeRs();
-//			conn.closeStmt();
-//			conn.close();
 
 			rs.close();
 			stmt.close();
-			conn.close();
+			con.close();
 			System.out.println(li);
 		}
 		
+	}
+
+	private static ConnectionDelegate ConnectionDelegate(Delegate dele) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

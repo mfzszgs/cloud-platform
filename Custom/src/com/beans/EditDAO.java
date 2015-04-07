@@ -1,19 +1,19 @@
 package com.beans;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
+import test.server.ConnectionDelegate;
+import test.server.ResultSetDelegate;
+import test.server.StatementDelegate;
 
 public class EditDAO {
 	
 	public LinkedList<DocBean> editGetDocByKCBT(String keyword, int classId, String builder, String startBt, String endBt) throws SQLException{
 		//通过传来的关键字keyword或classId或文档起草人或时间段，找到含有该关键字的文档并显示出来,此时文档的状态必须为4：通过
 		LinkedList<DocBean> li = new LinkedList<DocBean>();
-		Statement stmt = null;
-		ResultSet rs = null;
-		Connection con = Conn.getConnection();
+		StatementDelegate stmt = null;
+		ResultSetDelegate rs = null;
+		ConnectionDelegate con = Conn.getConnection();
 		String sql = null;
 		if (!con.isClosed())
 			//select * from basicinfo where state = 4 and BuildTime between '1994-11-02' and '2014-11-02' order by BuildTime asc 

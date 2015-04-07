@@ -1,14 +1,13 @@
 package com.beans;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import test.server.ConnectionDelegate;
+import test.server.ResultSetDelegate;
+import test.server.StatementDelegate;
 
 public class ProDAO {
 	
@@ -24,7 +23,7 @@ public class ProDAO {
 			String abstracts,
 			String fulltext,
 			String translatetext) throws SQLException{//众包人员补全文档信息
-		Statement stmt = null;
+		StatementDelegate stmt = null;
 		String sql = "UPDATE `basicinfo` SET " +
 				"`Title`='"+retitle+"'," +
 				"`Abstract`='"+abstracts+"'," +
@@ -35,7 +34,7 @@ public class ProDAO {
 				"`TranslateText`='"+translatetext+"'," +
 				"`Builder`='"+builder+"' WHERE  `ID`="+id+"";
 
-		Connection con = Conn.getConnection();
+		ConnectionDelegate con = Conn.getConnection();
 		if (!con.isClosed())
 			System.out.println("Succeeded connecting to the Database!");
 		try {
@@ -53,10 +52,10 @@ public class ProDAO {
 
 	public void updateDocSuggestion(int id,String suggestion) throws SQLException{/*通过文档id 设置用户id和文档状态*/
 
-		Statement stmt = null;
-		ResultSet rs = null;
+		StatementDelegate stmt = null;
+		ResultSetDelegate rs = null;
 		
-		Connection con = Conn.getConnection();
+		ConnectionDelegate con = Conn.getConnection();
 		if (!con.isClosed())
 			System.out.println("Succeeded connecting to the Database!");
 		try {
@@ -73,8 +72,8 @@ public class ProDAO {
 	}
 	public boolean statexToy(int id,int x,int y) throws SQLException{/*通过文档id将文档状态改为校审*/
 		boolean flag = false;
-		Statement stmt = null;
-		Connection con = Conn.getConnection();
+		StatementDelegate stmt = null;
+		ConnectionDelegate con = Conn.getConnection();
 		String sql = null;
 		if (!con.isClosed())
 			System.out.println("Succeeded connecting to the Database!");
@@ -103,10 +102,10 @@ public class ProDAO {
 	
 	public void updateDoc(int id,int uid) throws SQLException{/*通过文档id 设置用户id和文档状态*/
 
-		Statement stmt = null;
-		ResultSet rs = null;
+		StatementDelegate stmt = null;
+		ResultSetDelegate rs = null;
 		String sql = "UPDATE basicinfo SET UserID="+uid+",state = '2'  WHERE  ID="+id+"";
-		Connection con = Conn.getConnection();
+		ConnectionDelegate con = Conn.getConnection();
 		if (!con.isClosed())
 			System.out.println("Succeeded connecting to the Database!");
 		try {
@@ -124,10 +123,10 @@ public class ProDAO {
 	
 	public List<String> getDocState(int i) throws SQLException{//拿到数据库里档案的状态id，返回String型的列表
 		List<String> li = new ArrayList<String>();
-		Statement stmt = null;
-		ResultSet rs = null;
+		StatementDelegate stmt = null;
+		ResultSetDelegate rs = null;
 		String sql = null;
-		Connection con = Conn.getConnection();
+		ConnectionDelegate con = Conn.getConnection();
 		if (!con.isClosed())
 			System.out.println("Succeeded connecting to the Database!");
 		try {
@@ -155,9 +154,9 @@ public class ProDAO {
 
 	public LinkedList<DocBean> proGetDocByKS(String keyword, int stateId, int uid) throws SQLException {//通过keyword和文档状态，查找指定用户的文档
 		LinkedList<DocBean> li = new LinkedList<DocBean>();
-		Statement stmt = null;
-		ResultSet rs = null;
-		Connection con = Conn.getConnection();
+		StatementDelegate stmt = null;
+		ResultSetDelegate rs = null;
+		ConnectionDelegate con = Conn.getConnection();
 		String sql = null;
 		if (!con.isClosed())
 			System.out.println("Succeeded connecting to the Database!");
@@ -195,9 +194,9 @@ public class ProDAO {
 	
 	
 	public void delFromProFile(int id) throws SQLException {/*通过文档id修改文档状态：从被包改成可包*/
-		Statement stmt = null;
+		StatementDelegate stmt = null;
 		String sql = null;
-		Connection con = Conn.getConnection();
+		ConnectionDelegate con = Conn.getConnection();
 		if (!con.isClosed())
 			System.out.println("Succeeded connecting to the Database!");
 		DAO dao = new DAO();
@@ -220,7 +219,7 @@ public class ProDAO {
 	
 	/*	Statement stmt = null;
 	ResultSet rs = null;
-	Connection con = Conn.getConnection();
+	ConnectionDelegate con = Conn.getConnection();
 	if (!con.isClosed())
 		System.out.println("Succeeded connecting to the Database!");
 	try {

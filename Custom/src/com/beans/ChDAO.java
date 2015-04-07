@@ -4,23 +4,23 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-
-
+import test.server.ConnectionDelegate;
+import test.server.ResultSetDelegate;
+import test.server.StatementDelegate;
 
 public class ChDAO {
 
-	public List<UsersBean> getProId_Name() throws SQLException{//拿到众包用户的名称列表
+	public List<UsersBean> getProId_Name() throws Exception{//拿到众包用户的名称列表
 		List<UsersBean> li = new ArrayList<UsersBean>();
-		Statement stmt = null;
-		ResultSet rs = null;
+		
+		StatementDelegate stmt = null;
+		ResultSetDelegate rs = null;
 		String sql = null;
-		Connection con = Conn.getConnection();
+		ConnectionDelegate con = Conn.getConnection();
 		if (!con.isClosed())
 			System.out.println("Succeeded connecting to the Database!");
 		try {
@@ -44,14 +44,19 @@ public class ChDAO {
 		return li;
 	}
 		
-	public LinkedList<DocBean> cheGetDocByKCN(String keyword,int classId,int userId) throws SQLException{//通过传来的关键字keyword或classId或nameId(众包人员)，找到含有该关键字的文档并显示出来,此时文档的状态必须为3：校审
+	public LinkedList<DocBean> cheGetDocByKCN(String keyword,int classId,int userId) {//通过传来的关键字keyword或classId或nameId(众包人员)，找到含有该关键字的文档并显示出来,此时文档的状态必须为3：校审
 		LinkedList<DocBean> li = new LinkedList<DocBean>();
-		Statement stmt = null;
-		ResultSet rs = null;
-		Connection con = Conn.getConnection();
+		StatementDelegate stmt = null;
+		ResultSetDelegate rs = null;
+		ConnectionDelegate con = Conn.getConnection();
 		String sql = null;
-		if (!con.isClosed())
-			System.out.println("Succeeded connecting to the Database!");
+		try {
+			if (!con.isClosed())
+				System.out.println("Succeeded connecting to the Database!");
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			
 			if(keyword == null){
