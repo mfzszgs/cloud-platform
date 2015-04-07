@@ -9,3 +9,7 @@ bin
 .settings
 *.class
 /Rmi_test
+target
+mappings
+.studio
+*.properties
