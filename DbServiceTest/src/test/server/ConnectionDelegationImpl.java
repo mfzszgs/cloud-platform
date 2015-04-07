@@ -13,10 +13,10 @@ public class ConnectionDelegationImpl implements ConnectionDelegation {
 	private StatementDelegation stmt;
 	private ResultSetDelegation rs;
 
-	ConnectionDelegationImpl() {
+	public ConnectionDelegationImpl() {
 	}
 
-	ConnectionDelegationImpl(Connection conn) {
+	public ConnectionDelegationImpl(Connection conn) {
 		this.conn = conn;
 	}
 
