@@ -1,5 +1,6 @@
 <%@page import="com.beans.*"%>
 <%@page import="java.sql.ResultSet"%>
+<%@page import="test.server.*"%>
 <%@ page language="java"
 	import="java.util.*,com.beans.Conn,java.sql.*,com.filter.*"
 	pageEncoding="UTF-8"%>
@@ -73,12 +74,12 @@
 				
 				int curPages = m_pages.current_Pages(m_pages.strPage(request,"page"));
 				m_pages.setPage_record(10);//设置每页显示10条
-				Statement stmt = null;
-				ResultSet rs = null;
-				ResultSet rset = null;
+				StatementDelegate stmt = null;
+				ResultSetDelegate rs = null;
+				ResultSetDelegate rset = null;
 				int resultconts = 0;
 				int totalPages = 0;
-				Connection con = Conn.getConnection();
+				ConnectionDelegate con = Conn.getConnection();
 				String sql = "select * from basicinfo where state in (2,3,4,5) and userid = "+uid+" ";
 			
 				if (!con.isClosed())

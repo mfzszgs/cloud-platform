@@ -26,9 +26,9 @@ public class UploadUpdateServlet extends HttpServlet {
 		request.setCharacterEncoding("GBK");
 		
 		//request.getParameter("updocTitle");
-		System.out.println("idºÅ£º"+id);
-		System.out.println("classidºÅ£º"+classId);
-		System.out.println("titleºÅ£º"+title);
+		System.out.println("id"+id);
+		System.out.println("classid"+classId);
+		System.out.println("title"+title);
 		//Integer.parseInt(request.getParameter("upselectDocClass"));
 		
 		DAO dao = new DAO();

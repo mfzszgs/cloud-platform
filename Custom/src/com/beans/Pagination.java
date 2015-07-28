@@ -3,7 +3,7 @@ package com.beans;
 import java.sql.*;
 
 import javax.servlet.http.*;
-
+import test.server.*;
 /*封装分页程序*/
 
 public class Pagination {
@@ -82,7 +82,7 @@ public class Pagination {
 	 *            页数 
 	 * @return rs 结果集
 	 */
-	public ResultSet getPageSet(ResultSet rs, int current_Pages) {
+	public ResultSetDelegate getPageSet(ResultSetDelegate rs, int current_Pages) {
 		if (current_Pages == 1) {
 			return rs;// 如果就一页，就返回这个rs
 		}

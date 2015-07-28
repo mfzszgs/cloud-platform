@@ -99,6 +99,10 @@ public class DelegateImpl implements Delegate {
 	public boolean rsLast() throws SQLException {
 		return rs.last();
 	}
+	@Override
+	public void rsBeforeFirst() throws SQLException {
+		rs.beforeFirst();
+	}
 
 	@Override
 	public int stmtExecuteUpdate(String sql) throws SQLException {

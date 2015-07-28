@@ -35,7 +35,5 @@ public interface Delegate {
 	@WebMethod
 	public boolean rsLast() throws SQLException;
 	@WebMethod
-	public void rsBeforeFirst() throws SQLException;
-	@WebMethod
 	public int stmtExecuteUpdate(String sql) throws SQLException;
 }

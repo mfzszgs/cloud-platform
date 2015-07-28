@@ -1,4 +1,5 @@
 <%@page import="com.beans.*"%>
+<%@page import="test.server.*"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <% 
@@ -68,12 +69,12 @@ request.setCharacterEncoding("UTF-8");
 				
 				int curPages = m_pages.current_Pages(m_pages.strPage(request,"page"));
 				m_pages.setPage_record(10);//设置每页显示10条
-				Statement stmt = null;
-				ResultSet rs = null;
-				ResultSet rset = null;
+				StatementDelegate stmt = null;
+				ResultSetDelegate rs = null;
+				ResultSetDelegate rset = null;
 				int resultconts = 0;
 				int totalPages = 0;
-				Connection con = Conn.getConnection();
+				ConnectionDelegate con = Conn.getConnection();
 				String sql = "select * from basicinfo where state = 3";
 				if (!con.isClosed())
 					System.out.println("Succeeded connecting to the Database!");
@@ -150,8 +151,11 @@ request.setCharacterEncoding("UTF-8");
 						while (rset.next()) {
 					%>
               <td height="32"><%=rset.getString("Title")%></td>
-              <td><%=dao.getDocClass(rset.getInt("ClassID")).get(0)%></td>
+              <%System.out.println(con.isClosed()+"!!!!!!!!!!!!!!!!"); %>
               <td><%=prodao.getDocState(rset.getInt("State")).get(0)%></td>
+              <%System.out.println(con.isClosed()+"!!!!!!!!!!!!!!!!"); %>
+              <td><%=dao.getDocClass(rset.getInt("ClassID")).get(0)%></td>
+              <%System.out.println(con.isClosed()+"!!!!!!!!!!!!!!!!"); %>
               <td><div align="center"><a 
               href="CheMain.jsp?id=<%=rset.getInt("ID")%>"><img src="images/checking.png" width="20" height="20"> </a> </div></td>
           </tr>

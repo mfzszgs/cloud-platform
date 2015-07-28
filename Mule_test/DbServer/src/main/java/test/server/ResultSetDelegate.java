@@ -23,18 +23,25 @@ public class ResultSetDelegate {
 	public String getString(String string) throws SQLException {
 		return dele.rsGetString(string);
 	};
-	
+
 	public int getInt(String string) throws SQLException {
 		return dele.rsGetIntByString(string);
 	};
+
 	public int getInt(int i) throws SQLException {
 		return dele.rsGetIntByInt(i);
 	};
+
 	public int getRow() throws SQLException {
 		return dele.rsGetRow();
 	};
+
 	public boolean last() throws SQLException {
 		return dele.rsLast();
 	};
+
+	public void beforeFirst() throws SQLException {
+		dele.rsBeforeFirst();
+	}
 
 }

@@ -1,4 +1,5 @@
 ﻿<%@page import="com.beans.*"%>
+<%@page import="test.server.*"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java"
 	import="java.util.*,com.beans.Conn,java.sql.*,com.filter.*,com.tools.*"
@@ -117,10 +118,10 @@
 				m_pages.setPage_record(10);//设置每页显示10条
 				int resultconts = 0;
 				int totalPages = 0;
-				Statement stmt = null;
-				ResultSet rs = null;
-				ResultSet rset = null;
-				Connection con = Conn.getConnection();
+				StatementDelegate stmt = null;
+				ResultSetDelegate rs = null;
+				ResultSetDelegate rset = null;
+				ConnectionDelegate con = Conn.getConnection();
 				String sql = "select * from basicinfo where state = 1";
 				if (!con.isClosed())
 					System.out.println("Succeeded connecting to the Database!");
