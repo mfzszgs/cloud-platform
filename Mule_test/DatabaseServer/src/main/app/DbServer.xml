@@ -9,13 +9,13 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
 http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/3.1/mule-cxf.xsd" version="EE-3.6.1">
     <spring:beans>
-        <spring:bean id="delegate" class="test.server.DelegateImpl"/>
+        <spring:bean id="delegate" class="com.webservice.DelegateImpl" name="Bean"/>
     </spring:beans>
  
   <http:listener-config doc:name="HTTP Listener Configuration" name="listener-config" host="0.0.0.0" port="10101" />
   <flow name="helloService">
         <http:listener config-ref="listener-config" path="mysql" doc:name="HTTP Connector"/>    
-    <cxf:jaxws-service serviceClass="test.server.Delegate" doc:name="CXF"/>
+    <cxf:jaxws-service serviceClass="com.webservice.Delegate" doc:name="CXF"/>
     <component doc:name="Java"> 
       <spring-object bean="delegate" />  
     </component> 

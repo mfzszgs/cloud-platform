@@ -1,5 +1,4 @@
 <%@page import="com.beans.*"%>
-<%@page import="test.server.*"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java"
 	import="java.util.*,com.beans.Conn,java.sql.*,com.filter.*"
@@ -58,28 +57,32 @@
 	</p>
 	<%
 		DAO dao = new DAO();
+		UploaderDAO uploaderdao = new UploaderDAO();
 		List<String> li = dao.getDocClass(0);/* 获得档案类别列表 */
-
 		List<DocBean> docli = dao.getDoc(0);/* 获得所有档案列表 */
+		List<BasicinfoBean> infoList = uploaderdao.getUploaderInfo();
 
 		int curPages = m_pages.current_Pages(m_pages.strPage(request, "page"));
 		m_pages.setPage_record(10);//设置每页显示10条
 		int resultconts = docli.size();//取得总的数据数
 		int totalPages = m_pages.getTotal_Pages(resultconts);//取出总页数
-		StatementDelegate stmt = null;
-		ResultSetDelegate rs = null;
-		ResultSetDelegate rset = null;
-		ConnectionDelegate con = Conn.getConnection();
-		System.out.println("总数据长度为:" + resultconts);
-		if (!con.isClosed())
-			System.out.println("Succeeded connecting to the Database!");
-		try {
-			stmt = con.createStatement();
-			rs = stmt.executeQuery("select * from basicinfo order by InputDate desc");//要执行的SQL语句
-			rset = m_pages.getPageSet(rs, curPages);//获取指针的结果集参数是(结果集，页数)
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		//Statement stmt = null;
+		//ResultSet rs = null;
+		//ResultSet rset = null;
+		//Connection con = Conn.getConnection();
+		//System.out.println("总数据长度为:" + resultconts);
+		//if (!con.isClosed())
+		//	System.out.println("Succeeded connecting to the Database!");
+		//try {
+		//	stmt = con.createStatement();
+		//	rs = stmt
+		//			.executeQuery("select * from basicinfo order by InputDate desc");//要执行的SQL语句
+		//	rset = m_pages.getPageSet(rs, curPages);//获取指针的结果集参数是(结果集，页数)
+		//} catch (SQLException e) {
+		//	e.printStackTrace();
+		//}
+		Iterator<BasicinfoBean> it = infoList.iterator();
+		Iterator<BasicinfoBean> itet = m_pages.getPageSet(it, curPages);
 	%>
 
 
@@ -165,23 +168,18 @@
 						int i = 1;
 					%>
 					<%
-						while (rset.next()) {
-							//System.out.println(rset.getInt("ID"));
+						while (itet.hasNext()) {
+							BasicinfoBean bean = itet.next();
 					%>
-					<td><%=rset.getString("Title")%></td>
-					<td height="33"><%=rset.getString("InputDate")%></td>
-					<%
-					%>
-					<td><%=dao.getDocClass(rset.getInt("ClassID")).get(0)%></td>
-					<%
-					%>
+					<td><%=bean.getTitle()%></td>
+					<td height="33"><%=bean.getInputDate()%></td>
+					<td><%=dao.getDocClass(bean.getClassID()).get(0)%></td>
 					<td style="width: 38px;"><a
-						href="Update.jsp?id=<%=rset.getInt("ID")%>"> <img
+						href="Update.jsp?id=<%=bean.getID()%>"> <img
 							src="images/change.png" alt="编辑" width="25" height="25"
 							hspace="10">
 					</a></td>
-					<td><a
-						href="DelServlet?id=<%=rset.getInt("ID")%>&jsp=Uploader"
+					<td><a href="DelServlet?id=<%=bean.getID()%>&jsp=Uploader"
 						onClick="del();"> <img src="images/dele.png" width="24"
 							height="24" hspace="10">
 					</a></td>
@@ -192,10 +190,6 @@
 						if (i > 10)
 							break;
 					}
-					Conn.closeRs(rs);
-					Conn.closeStmt(stmt);
-					Conn.closeCon(con);
-					Conn.closeRs(rset);
 				%>
 			</table>
 

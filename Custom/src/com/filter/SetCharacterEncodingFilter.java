@@ -37,7 +37,9 @@ public void doFilter(ServletRequest request, ServletResponse response,
     FilterChain filterChain) {
    // TODO Auto-generated method stub
    try{
+    //在控制台输出目标编码
     System.out.println("targetEncoding:"+targetEncoding+"\n");
+    //执行编码，实际的处理内容
     request.setCharacterEncoding(targetEncoding);
     filterChain.doFilter(request,response);
    }
@@ -52,6 +54,7 @@ public void doFilter(ServletRequest request, ServletResponse response,
 
 } 
 public void destroy() {
+   //清空资源
    this.filterConfig=null;
    this.targetEncoding=null;
   

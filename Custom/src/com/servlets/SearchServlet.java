@@ -96,6 +96,8 @@ public class SearchServlet extends HttpServlet {
 		}else if(request.getParameter("jsp").equals("Checker")){//校审人员搜索
 			int userId = Integer.parseInt(request.getParameter("selectProName").toString());//为0时搜索所有众包人员
 			int classId = Integer.parseInt(request.getParameter("selectDocClass").toString());//为0时搜索所有档案类型
+			try {
+			
 				LinkedList<DocBean> li = chdao.cheGetDocByKCN(keyword, classId, userId);
 				ListIterator<DocBean> aIter=li.listIterator();
 				DocBean docb= new DocBean();
@@ -103,6 +105,9 @@ public class SearchServlet extends HttpServlet {
 				request.setAttribute("aIter",aIter);
 				request.setAttribute("docb", docb);
 				request.getRequestDispatcher("ChSearchResult.jsp").forward(request, response);
+			} catch (SQLException e) {
+				e.printStackTrace();
+		}
 		out.flush();
 		out.close();
 	}else if(request.getParameter("jsp").equals("Publisher")){//新闻发布人员搜索
