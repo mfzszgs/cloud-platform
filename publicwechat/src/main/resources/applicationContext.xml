@@ -21,7 +21,7 @@
 	<!-- 配置数据源 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close" p:driverClassName="com.mysql.jdbc.Driver"
-		p:url="jdbc:mysql://116.57.78.136:3306/publicwechat?useUnicode=true&amp;characterEncoding=UTF-8"
+		p:url="jdbc:mysql://localhost/publicWechat?useUnicode=true&amp;characterEncoding=UTF-8"
 		p:username="myuser" p:password="mypassword" />
 
 	<!-- 配置Jdbc模板 -->
