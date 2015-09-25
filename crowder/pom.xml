@@ -6,7 +6,7 @@
 		<artifactId>cloud-platform</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>publicwechat</artifactId>
+	<artifactId>crowder</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<properties>

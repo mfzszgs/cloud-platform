@@ -1,4 +1,4 @@
-package com.scutpress.cloud.publicwechat.domain;
+package com.scutpress.cloud.crowder.domain;
 
 import java.io.Serializable;
 

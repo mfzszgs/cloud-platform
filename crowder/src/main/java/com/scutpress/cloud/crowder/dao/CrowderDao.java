@@ -1,11 +1,11 @@
-package com.scutpress.cloud.publicwechat.dao;
+package com.scutpress.cloud.crowder.dao;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.scutpress.cloud.publicwechat.domain.Crowder;
+import com.scutpress.cloud.crowder.domain.Crowder;
 
 @Repository
 public class CrowderDao {
