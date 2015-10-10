@@ -17,8 +17,8 @@ public class MsgService {
 	@Autowired
 	private TypeDao typeDao;
 
-	public List<Msg> getMsgTable(int type) {
-		List<Msg> list = msgDao.getMsgByType(type);
+	public List<Msg> getMsgTable(int typeNum) {
+		List<Msg> list = msgDao.getMsgByType(typeNum);
 		return list;
 	}
 
@@ -26,12 +26,15 @@ public class MsgService {
 		return typeDao.getAllType();
 	}
 
-	public void changeMsgType(List<Msg> list, String[] typeArr) {
-		if (typeArr.length != list.size()) {
-			System.out.println("Error in MsgService.changeMsgType");
-		}
-		for (int i = 0; i < typeArr.length; i++) {
-			msgDao.setType(list.get(i), Integer.parseInt(typeArr[i]));
-		}
+	// public void changeMsgType(List<Msg> list, String[] typeArr) {
+	// if (typeArr.length != list.size()) {
+	// System.out.println("Error in MsgService.changeMsgType");
+	// }
+	// for (int i = 0; i < typeArr.length; i++) {
+	// msgDao.setType(list.get(i), Integer.parseInt(typeArr[i]));
+	// }
+	// }
+	public void changeMsgTypeById(int msgId, int type) {
+		msgDao.setTypeById(msgId, type);
 	}
 }

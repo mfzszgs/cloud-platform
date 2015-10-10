@@ -99,4 +99,9 @@ public class MsgDao {
 		jdbcTemplate.update(sqlStr, new Object[] { type, msgUrl });
 
 	}
+	public void setTypeById(int  msgId, int type) {
+		String sqlStr = " UPDATE msg SET msgType=?" + " WHERE id =?";
+		jdbcTemplate.update(sqlStr, new Object[] { type, msgId });
+
+	}
 }
