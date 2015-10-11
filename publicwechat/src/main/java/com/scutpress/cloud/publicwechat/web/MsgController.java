@@ -54,6 +54,7 @@ public class MsgController {
 	// }
 
 	// @RequestMapping(value = "/submit.html")
+	
 	@RequestMapping(value = "/admin.html")
 	public ModelAndView getSubmitTable(HttpServletRequest request) {
 
