@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS crowder;
 CREATE DATABASE crowder DEFAULT CHARACTER SET utf8 COLLATE 'utf8_general_ci';
 USE crowder;
 
-CREATE TABLE msg (
+CREATE TABLE crowderTable (
     id   INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(20) ,
     sex VARCHAR(1),

@@ -51,26 +51,16 @@ div.weibo-list-item-img {
 
 div.weibo-list-item-line {
 	position: absolute;
-	padding-top: 32px;
+	padding-top: 50px;
 	padding-left: 240px;
+	font-size: 60px;
 }
 
 div.weibo-list-item-title {
 	height: 50px;
-	overflow: hidden;
-	padding-left: 40px;
+	padding-left: 30px;
 	padding-right: 40px;
-	font-size: 45px;
-}
-
-div.weibo-list-item-summary {
-	height: 62 px;
-	overflow: hidden;
-	padding-right: 60px;
-	padding-top: 6px;
-	color: #666;
-	font-size: 35px;
-	color: #666;
+	font-size: 60px;
 }
 </style>
 </head>
@@ -89,7 +79,6 @@ div.weibo-list-item-summary {
 			</div>
 			<div class="weibo-list-item-line">
 				<div class="weibo-list-item-title"><%=msg.getTitle()%></div>
-				<div class="weibo-list-item-summary"><%=msg.getSummary()%></div>
 			</div>
 			<div class="weibo-list-item-icon"></div>
 		</a>
