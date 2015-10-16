@@ -64,7 +64,7 @@
            {	
                "type":"view",
                "name":"志愿者招募",
-               "url":"http://116.57.78.130:8888/publicwechat/msg.html?type=12"
+               "url":"http://116.57.78.130:8888/crowder/regist.html"
             },
            {	
                "type":"view",
