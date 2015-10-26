@@ -8,6 +8,7 @@ public class RequestTextMessage {
     private String content;
     private String msgId;
     private String event;
+    private String eventKey;
 //getters,setters    
 	public String getToUserName() {
 		return toUserName;
@@ -50,5 +51,11 @@ public class RequestTextMessage {
 	}
 	public void setEvent(String event) {
 		this.event = event;
+	}
+	public String getEventKey() {
+		return eventKey;
+	}
+	public void setEventKey(String eventKey) {
+		this.eventKey = eventKey;
 	}
 }

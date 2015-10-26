@@ -46,56 +46,58 @@ public class CoreServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println("收到了东西");
 		// 当你用微信给平台发送信息时就会到这里
-		// 回复音乐和图文消息，我都写死了，自己可以根据自己的需要加相应的处理
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter pw = response.getWriter();
 		String wxMsgXml = IOUtils.toString(request.getInputStream(), "utf-8");
+
+		System.out.println("收到的xml为：" + wxMsgXml);
 		RequestTextMessage textMsg = null;
 		try {
 			textMsg = getRequestTextMessage(wxMsgXml);
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("getRequestTextMessage出错了");
 		}
 		StringBuffer replyMsg = new StringBuffer();
-		String receive = textMsg.getContent().trim();
-		String msgType = textMsg.getMessageType().trim();
 		String returnXml = null;
-		if (msgType.equals("text")) {
-			replyMsg.append("收到了text");
-			returnXml = getReplyTextMessage(replyMsg.toString(), textMsg.getFromUserName(), textMsg.getToUserName());
-		} else if (msgType.equals("event")) {
+
+		String msgType = textMsg.getMessageType().trim();
+		System.out.println("msgType is " + msgType);
+
+		// if (msgType.equals("text")) {
+		// System.out.println("收到了text");
+		// String content = textMsg.getContent().trim();
+		// replyMsg.append("收到了text");
+		// returnXml = getReplyTextMessage(replyMsg.toString(),
+		// textMsg.getFromUserName(), textMsg.getToUserName());
+		// }
+
+		if (msgType.equals("event")) {
+			System.out.println("收到了event");
 			String event = textMsg.getEvent().trim();
-			replyMsg.append("收到了event");
-			returnXml = getReplyTextMessage(replyMsg.toString(), textMsg.getFromUserName(), textMsg.getToUserName());
 			if (event.equals("subscribe")) {
 				replyMsg.append("关注乡愁记忆，开启文化寻根之旅。");
 				returnXml = getReplyTextMessage(replyMsg.toString(), textMsg.getFromUserName(),
 						textMsg.getToUserName());
 			}
-		} else if (textMsg != null && !receive.equals("")) {
-			if (receive.equals("？") || receive.equals("?")) {
+		}
 
-				replyMsg.append("欢迎使用乡愁记忆微信平台！");
-				// replyMsg.append("\r\n1、当前时间");
-				// replyMsg.append("\r\n2、听音乐");
-				// replyMsg.append("\r\n3、看图文");
-				// replyMsg.append("\r\n其他、回音壁请直接输入文字信息");
-
-				returnXml = getReplyTextMessage(replyMsg.toString(), textMsg.getFromUserName(),
-						textMsg.getToUserName());
-
-			} else if (receive.equals("2")) {
+		else if (msgType.equals("text")) {
+			System.out.println("收到了text");
+			String content = textMsg.getContent().trim();
+			if (content.equals("2")) {
 
 				// 回复音乐信息
 				returnXml = getReplyMusicMessage(textMsg.getFromUserName(), textMsg.getToUserName());
 
-			} else if (receive.equals("建筑")) {
+			} else if (content.equals("建筑")) {
 
 				// 回复图文
 				returnXml = getReplyTuwenMessage(textMsg.getFromUserName(), textMsg.getToUserName());
 
-			} else if (receive.equals("1")) {
+			} else if (content.equals("1")) {
 
 				// 回复时间
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -120,7 +122,7 @@ public class CoreServlet extends HttpServlet {
 		pw.println(returnXml);
 	}
 
-	// 获取推送文本消息
+	// 获取推送文本或事件消息
 	private RequestTextMessage getRequestTextMessage(String xml) {
 
 		XStream xstream = new XStream(new DomDriver());
@@ -130,14 +132,16 @@ public class CoreServlet extends HttpServlet {
 		xstream.aliasField("FromUserName", RequestTextMessage.class, "fromUserName");
 		xstream.aliasField("CreateTime", RequestTextMessage.class, "createTime");
 		xstream.aliasField("MsgType", RequestTextMessage.class, "messageType");
+
+		// add
+		xstream.aliasField("Event", RequestTextMessage.class, "event");
+		xstream.aliasField("EventKey", RequestTextMessage.class, "eventKey");
+
 		xstream.aliasField("Content", RequestTextMessage.class, "content");
 		xstream.aliasField("MsgId", RequestTextMessage.class, "msgId");
 
-		// add
-
-		xstream.aliasField("Event", RequestTextMessage.class, "event");
-
 		RequestTextMessage requestTextMessage = (RequestTextMessage) xstream.fromXML(xml);
+
 		return requestTextMessage;
 	}
 
