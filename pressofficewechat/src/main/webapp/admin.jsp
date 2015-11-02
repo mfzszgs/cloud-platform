@@ -4,7 +4,7 @@
 <%@page import="com.scutpress.cloud.pressofficewechat.domain.Msg"%>
 <html>
 <head>
-<title>乡愁记忆 板块分类</title>
+<title>华工出版社公众号 板块分类</title>
 <link
 	href="http://cdn.bootcss.com/bootstrap/2.3.2/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -80,7 +80,7 @@
 						</div>
 						</div>
 						<input type="submit" value="保存" />
-						<button onclick="window.location.href='sync.html'">从微信公众号同步新消息</button>
+						<button onclick="window.location.href='sync.html';return false">从微信公众号同步新消息</button>
 					</form>
 
 				</div>

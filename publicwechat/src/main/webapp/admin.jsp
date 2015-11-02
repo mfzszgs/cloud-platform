@@ -80,7 +80,7 @@
 						</div>
 						</div>
 						<input type="submit" value="保存" />
-						<button onclick="window.location.href='sync.html'">从微信公众号同步新消息</button>
+						<button onclick="window.location.href='sync.html';return false">从微信公众号同步新消息</button>
 					</form>
 
 				</div>

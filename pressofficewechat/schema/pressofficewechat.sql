@@ -22,9 +22,9 @@ VALUES(1,"未分类");
 INSERT INTO typeTable(typeNum,typeName)
 VALUES(2,"新书消息");
 INSERT INTO typeTable(typeNum,typeName)
-VALUES(3,"关于我们");
+VALUES(3,"新闻中心");
 INSERT INTO typeTable(typeNum,typeName)
-VALUES(4,"未定义");
+VALUES(4,"关于我们");
 INSERT INTO typeTable(typeNum,typeName)
 VALUES(5,"未定义");
 INSERT INTO typeTable(typeNum,typeName)
