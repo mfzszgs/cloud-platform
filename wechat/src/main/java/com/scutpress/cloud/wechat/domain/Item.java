@@ -1,4 +1,4 @@
-package com.scutpress.cloud.wechat.message;
+package com.scutpress.cloud.wechat.domain;
 
 public class Item {
 

@@ -1,15 +1,16 @@
-package com.scutpress.cloud.wechat.message;
+package com.scutpress.cloud.wechat.domain;
 
-public class RequestTextMessage {
+public class ReplyTuwenMessage {
+
     private String toUserName;
     private String fromUserName;
     private String createTime;
     private String messageType;
-    private String content;
-    private String msgId;
-    private String event;
-    private String eventKey;
-//getters,setters    
+    private int articleCount;
+    
+    private Articles Articles;
+    private String funcFlag;
+//getters,setters
 	public String getToUserName() {
 		return toUserName;
 	}
@@ -34,28 +35,24 @@ public class RequestTextMessage {
 	public void setMessageType(String messageType) {
 		this.messageType = messageType;
 	}
-	public String getContent() {
-		return content;
+	public int getArticleCount() {
+		return articleCount;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setArticleCount(int articleCount) {
+		this.articleCount = articleCount;
 	}
-	public String getMsgId() {
-		return msgId;
+	public Articles getArticles() {
+		return Articles;
 	}
-	public void setMsgId(String msgId) {
-		this.msgId = msgId;
+	public void setArticles(Articles articles) {
+		Articles = articles;
 	}
-	public String getEvent() {
-		return event;
+	public String getFuncFlag() {
+		return funcFlag;
 	}
-	public void setEvent(String event) {
-		this.event = event;
-	}
-	public String getEventKey() {
-		return eventKey;
-	}
-	public void setEventKey(String eventKey) {
-		this.eventKey = eventKey;
+	public void setFuncFlag(String funcFlag) {
+		this.funcFlag = funcFlag;
 	}
 }
+
+
